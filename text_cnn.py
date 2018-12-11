@@ -1,4 +1,5 @@
 # coding: utf8
+import numpy as np
 import torch
 from torch import nn
 from torch.autograd import Variable
@@ -63,7 +64,7 @@ x = torch.LongTensor([[1,2,3, 4, 5, 6, 7, 8, 9],
 
 y = torch.LongTensor([1, 0])
 
-for epoch in range(10000):
+for epoch in range(100):
     out = net(x)
 
     loss = criterion(out, y)
@@ -73,3 +74,8 @@ for epoch in range(10000):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+
+# 预测
+output = net(x)
+preds = list(np.argmax(output.data.numpy(), axis=1).flatten())
+
